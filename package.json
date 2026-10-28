@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/PizzaFrogDev/LeBoWo-Quizapp#readme",
   "devDependencies": {
-    "electron": "^45.0.0"
+    "electron": "^45.1.0"
   }
 }

@@ -12,6 +12,7 @@
 import { CategoryView } from './views/categoryView.js';
 import { QuestionView } from './views/questionView.js';
 import { showToast } from './ui/ui.js';
+import { LoginView } from './views/loginView.js';
 
 class App {
   constructor() {
@@ -25,7 +26,10 @@ class App {
   }
 
   /** Verbindet die Navigation und öffnet die Startansicht. */
-  init() {
+    async init() {
+    // Erst anmelden, dann erst Daten laden.
+    await LoginView.ensureAuthenticated();
+
     for (const button of this.navButtons) {
       button.addEventListener('click', () => this.navigate(button.dataset.view));
     }
