@@ -1,0 +1,535 @@
+/* ==========================================================================
+   style.css – Grundlayout und gemeinsame Bausteine (Buttons, Tabellen, Dialoge)
+   Fragen-spezifische Styles stehen in questions.css.
+   ========================================================================== */
+
+:root {
+  --color-bg: #f4f5fb;
+  --color-surface: #ffffff;
+  --color-ink: #1f2340;
+  --color-muted: #6b7090;
+  --color-line: #e3e5f1;
+
+  --color-primary: #5b5fef;
+  --color-primary-dark: #4549d6;
+  --color-primary-soft: #eceeff;
+
+  --color-danger: #e5484d;
+  --color-danger-soft: #fdecec;
+  --color-success: #2f9e6e;
+  --color-success-soft: #e6f6ee;
+
+  --color-sidebar-top: #1f2340;
+  --color-sidebar-bottom: #2f3366;
+
+  --radius: 12px;
+  --radius-small: 8px;
+  --shadow: 0 1px 2px rgba(31, 35, 64, 0.06), 0 8px 24px rgba(31, 35, 64, 0.06);
+  --shadow-strong: 0 20px 60px rgba(31, 35, 64, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Grundlayout: Seitenleiste + Inhalt ---------- */
+
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  color: #fff;
+  background: linear-gradient(180deg, var(--color-sidebar-top), var(--color-sidebar-bottom));
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 28px;
+}
+
+.sidebar__logo {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 12px;
+  background: var(--color-primary);
+  box-shadow: 0 6px 16px rgba(91, 95, 239, 0.5);
+}
+
+.sidebar__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sidebar__subtitle {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  font: inherit;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  cursor: pointer;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-item--active {
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.nav-item__icon {
+  width: 22px;
+  text-align: center;
+}
+
+.sidebar__footer {
+  margin-top: auto;
+  padding: 0 8px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.content {
+  height: 100vh;
+  padding: 32px 40px;
+  overflow-y: auto;
+}
+
+/* ---------- Seitenkopf und Karten ---------- */
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  margin: 4px 0 0;
+  color: var(--color-muted);
+}
+
+.card {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  transition: background 0.15s, border-color 0.15s, transform 0.05s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--color-bg);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn:focus-visible,
+.input:focus-visible,
+.nav-item:focus-visible {
+  outline: 3px solid rgba(91, 95, 239, 0.4);
+  outline-offset: 1px;
+}
+
+.btn--primary {
+  color: #fff;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+}
+
+.btn--danger {
+  color: #fff;
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: #cc3338;
+}
+
+.btn--danger-ghost {
+  color: var(--color-danger);
+}
+
+.btn--danger-ghost:hover:not(:disabled) {
+  background: var(--color-danger-soft);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn--small {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ---------- Tabellen ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-line);
+  background: #fafbff;
+}
+
+.table td {
+  padding: 14px 20px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tbody tr:hover {
+  background: #fafbff;
+}
+
+.cell-strong {
+  font-weight: 600;
+}
+
+.cell-muted {
+  color: var(--color-muted);
+}
+
+.cell-number {
+  width: 90px;
+  text-align: center !important;
+}
+
+.cell-actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right !important;
+}
+
+.cell-actions .btn + .btn {
+  margin-left: 8px;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 999px;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-soft);
+}
+
+/* ---------- Leerer Zustand ---------- */
+
+.empty-state {
+  padding: 56px 24px;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.empty-state__icon {
+  font-size: 40px;
+}
+
+.empty-state__title {
+  margin: 8px 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ---------- Formulare ---------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label,
+.field__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  transition: border-color 0.15s;
+}
+
+.input:hover {
+  border-color: #c9ccdf;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* In Dialogen bleibt die Aktionsleiste am unteren Rand sichtbar, auch wenn das Formular scrollt. */
+.modal__body .form-actions {
+  position: sticky;
+  bottom: 0;
+  margin: 4px -24px 0;
+  padding: 14px 24px;
+  border-top: 1px solid var(--color-line);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--color-surface);
+}
+
+.form-error {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #a62b30;
+  border-radius: var(--radius-small);
+  background: var(--color-danger-soft);
+}
+
+/* ---------- Dialoge ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(31, 35, 64, 0.5);
+  animation: fade-in 0.15s ease-out;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  /* Dialog nie höher als das Fenster; der Inhalt (.modal__body) scrollt dann. */
+  max-height: calc(100vh - 48px);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-strong);
+  animation: pop-in 0.18s ease-out;
+}
+
+.modal--wide {
+  max-width: 760px;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 8px;
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal__close {
+  width: 34px;
+  height: 34px;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+}
+
+.modal__close:hover {
+  background: var(--color-bg);
+}
+
+.modal__body {
+  min-height: 0;
+  padding: 12px 24px 0;
+  overflow-y: auto;
+}
+
+.confirm__message {
+  margin: 0 0 20px;
+}
+
+/* ---------- Meldungen (Toasts) ---------- */
+
+#toast-container {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 380px;
+}
+
+.toast {
+  padding: 12px 16px;
+  font-weight: 500;
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-strong);
+  animation: pop-in 0.18s ease-out;
+}
+
+.toast--success {
+  border-left-color: var(--color-success);
+}
+
+.toast--error {
+  border-left-color: var(--color-danger);
+}
+
+/* ---------- Animationen ---------- */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

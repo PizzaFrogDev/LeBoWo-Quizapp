@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Sicherheit: Es dürfen nur eigene Skripte/Styles geladen werden; Bilder auch als data:-URL. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizzApp Autorentool</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/questions.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- Seitenleiste mit Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <span class="sidebar__logo" aria-hidden="true">?</span>
+          <div>
+            <div class="sidebar__title">QuizzApp</div>
+            <div class="sidebar__subtitle">Autorentool</div>
+          </div>
+        </div>
+
+        <nav class="sidebar__nav" aria-label="Hauptnavigation">
+          <button class="nav-item" type="button" data-view="questions">
+            <span class="nav-item__icon" aria-hidden="true">❓</span>
+            <span>Fragen</span>
+          </button>
+          <button class="nav-item" type="button" data-view="categories">
+            <span class="nav-item__icon" aria-hidden="true">🗂️</span>
+            <span>Kategorien</span>
+          </button>
+        </nav>
+
+        <div class="sidebar__footer">Semesterprojekt · 3. Semester</div>
+      </aside>
+
+      <!-- Hier wird die jeweils aktive Ansicht eingesetzt (siehe app.js) -->
+      <main class="content" id="view"></main>
+    </div>
+
+    <!-- Container für Dialoge und Meldungen (siehe js/ui/ui.js) -->
+    <div id="modal-root"></div>
+    <div id="toast-container" aria-live="polite"></div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
