@@ -1,0 +1,272 @@
+/* ==========================================================================
+   login.css – Anmeldebildschirm, Handy mit Video und Benutzerleiste
+   ========================================================================== */
+
+/* ---------- Vollbild-Container ---------- */
+
+.login {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow-y: auto;
+  background:
+    radial-gradient(900px 500px at 15% 10%, rgba(91, 95, 239, 0.35), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(229, 72, 77, 0.22), transparent 60%),
+    linear-gradient(160deg, var(--color-sidebar-top), var(--color-sidebar-bottom));
+  animation: fade-in 0.2s ease-out;
+}
+
+.login--leaving {
+  opacity: 0;
+  transition: opacity 0.25s ease-in;
+  pointer-events: none;
+}
+
+.login__stage {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+/* ---------- Anmeldekarte ---------- */
+
+.login__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-strong);
+  animation: pop-in 0.22s ease-out;
+}
+
+.login__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.login__brand .sidebar__logo {
+  color: #fff;
+}
+
+.login__title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.login__subtitle {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.login__hint {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.login__submit {
+  width: 100%;
+  padding: 12px 18px;
+}
+
+.login__footer {
+  margin-top: 4px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* ---------- Fehlversuch: Handy mit Video ---------- */
+
+.login__failure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+  text-align: center;
+  color: #fff;
+}
+
+.login__failure-title {
+  margin: 10px 0 0;
+  font-size: 24px;
+}
+
+.login__failure-text {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.phone {
+  position: relative;
+  /* Das Handy passt sich der Fensterhöhe an, damit Text und Button immer sichtbar bleiben. */
+  height: min(52vh, 470px);
+  aspect-ratio: 9 / 19;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 36px rgba(229, 72, 77, 0.35));
+  animation: phone-shake 0.5s ease-out;
+}
+
+.phone__body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 3.2%;
+  border-radius: 14% / 6.6%;
+  background: linear-gradient(145deg, #3a3d52, #12131c 55%, #2a2c3d);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12), inset 0 0 0 5px #0a0a10;
+}
+
+.phone__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 11% / 5.2%;
+  background: #000;
+}
+
+.phone__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phone__island {
+  position: absolute;
+  top: 2.6%;
+  left: 50%;
+  width: 28%;
+  height: 3.4%;
+  border-radius: 999px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.phone__home-bar {
+  position: absolute;
+  bottom: 2.2%;
+  left: 50%;
+  width: 34%;
+  height: 0.9%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateX(-50%);
+}
+
+/* Die Tasten an der Seite. */
+.phone__button {
+  position: absolute;
+  width: 1.6%;
+  border-radius: 2px;
+  background: #1c1d29;
+}
+
+.phone__button--silent {
+  left: -1%;
+  top: 14%;
+  height: 3.2%;
+}
+
+.phone__button--volume-up {
+  left: -1%;
+  top: 20%;
+  height: 6%;
+}
+
+.phone__button--volume-down {
+  left: -1%;
+  top: 28%;
+  height: 6%;
+}
+
+.phone__button--power {
+  right: -1%;
+  top: 24%;
+  height: 10%;
+}
+
+/* Falls die Videodatei fehlt. */
+.phone__fallback {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(180deg, #5a0f14, #1b0000);
+}
+
+.phone__fallback-icon {
+  font-size: 56px;
+}
+
+/* ---------- Benutzerleiste in der Seitenleiste ---------- */
+
+.sessionbar {
+  margin-top: auto;
+  padding: 12px 14px;
+  border-radius: var(--radius-small);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sessionbar + .sidebar__footer {
+  margin-top: 16px;
+}
+
+.sessionbar__label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.sessionbar__user {
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.sessionbar__logout {
+  width: 100%;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  background: transparent;
+}
+
+.sessionbar__logout:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+@keyframes phone-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(-12px) rotate(-1.5deg);
+  }
+  36% {
+    transform: translateX(10px) rotate(1.2deg);
+  }
+  54% {
+    transform: translateX(-7px);
+  }
+  72% {
+    transform: translateX(4px);
+  }
+}
