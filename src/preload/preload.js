@@ -25,6 +25,16 @@ async function call(channel, ...args) {
  * Das ist die komplette Schnittstelle zwischen Oberfläche und Datenbank.
  */
 contextBridge.exposeInMainWorld('api', {
+  
+    auth: {
+    /** @param {string} username @param {string} password @returns {Promise<{username,displayName}>} */
+    login: (username, password) => call('auth:login', username, password),
+    /** Meldet ab. */
+    logout: () => call('auth:logout'),
+    /** @returns {Promise<{loggedIn:boolean, user:({username,displayName}|null)}>} */
+    status: () => call('auth:status'),
+  },
+
   categories: {
     /** @returns {Promise<{id,name,description,questionCount}[]>} */
     list: () => call('categories:list'),

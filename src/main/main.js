@@ -13,6 +13,10 @@ const QuestionRepository = require('./database/QuestionRepository');
 const registerCategoryIpc = require('./ipc/categoryIpc');
 const registerQuestionIpc = require('./ipc/questionIpc');
 
+const AuthService = require('./auth/AuthService');
+const registerAuthIpc = require('./ipc/authIpc');
+const { setAuthGuard } = require('./ipc/ipcHelper');
+
 /** Geöffnete Datenbank; wird beim Beenden der App geschlossen. */
 let database = null;
 
@@ -61,7 +65,12 @@ function initializeBackend() {
   );
 
   registerCategoryIpc(categoryRepository, difficultyRepository);
-  registerQuestionIpc(questionRepository);
+    registerQuestionIpc(questionRepository);
+
+  // Anmeldung: Alle Datenkanäle sind erst nach erfolgreichem Login erreichbar.
+  const authService = new AuthService(path.join(app.getAppPath(), 'data', 'authors.json'));
+  setAuthGuard(() => authService.isLoggedIn());
+  registerAuthIpc(authService);
   return true;
 }
 
