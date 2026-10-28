@@ -1,0 +1,20 @@
+[
+  {
+    "username": "boehm",
+    "displayName": "Boehm",
+    "salt": "038b1a03103118816fc2ec72c4845087",
+    "hash": "55cfb297200cebef95f1e15c528cd5328b3d2c1d29fecdd6efa3b1ad455125a04899c7658015e720c6483f599331e719f18fe61188ba4c7f50e28851cec3fbd1"
+  },
+  {
+    "username": "leander",
+    "displayName": "Leander",
+    "salt": "53c90b9bf22b5a7beeb1c7f54d3d3fc7",
+    "hash": "ab8418bc6bbf347fd0258c9018da991c727254948ff57a49509ae5f6e48fe187050a4521068bab0e066e1c10ba00a8c07a71535f77e987a275f8081dc4332257"
+  },
+  {
+    "username": "wolkan",
+    "displayName": "Wolkan",
+    "salt": "b854b642b138f997308aa42c02be9c0a",
+    "hash": "d5f786e75262c24172b64f1b733609b7cc8c3fc8449f3eec67daa968941b423a2f9931ae18a7ead58f4a9f9c443f0535f5708c89760e642ad6c38d24764c5815"
+  }
+]
