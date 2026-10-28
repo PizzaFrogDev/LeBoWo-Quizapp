@@ -41,26 +41,24 @@
   overflow: hidden;
 }
 
-/* Schwierigkeitsgrade farblich unterscheiden (Stufe modulo 4). */
-.badge--level-0 {
-  color: #8a5a00;
-  background: #fff3d6;
-}
 
-.badge--level-1 {
+/* Schwierigkeitsgrade: leicht = grün, mittel = orange, schwer = rot. */
+.badge--easy {
   color: #1d7a52;
   background: var(--color-success-soft);
 }
 
-.badge--level-2 {
+.badge--medium {
   color: #9a5300;
   background: #ffe8d1;
 }
 
-.badge--level-3 {
+.badge--hard {
   color: #a62b30;
   background: var(--color-danger-soft);
 }
+
+
 
 /* ---------- Formular: Felder nebeneinander ---------- */
 

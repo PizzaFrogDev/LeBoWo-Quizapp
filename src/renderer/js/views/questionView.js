@@ -114,6 +114,27 @@ export class QuestionView {
 
     return el('div', { class: 'toolbar' }, searchInput, categorySelect, difficultySelect, this.countLabel);
   }
+  
+  /**
+   * Bestimmt die Farbe eines Schwierigkeitsgrads: leicht = grün, mittel = orange, schwer = rot.
+   * Zuerst entscheidet der Name. Kennt das Tool den Namen nicht, zählt die Reihenfolge
+   * der Stufen (kleinste = leicht, größte = schwer).
+   *
+   * @param {{difficultyLevel:number, difficultyName:string}} question Frage aus der Liste
+   * @returns {'easy'|'medium'|'hard'} Name der Farbklasse (badge--easy usw.)
+   */
+  toneFor(question) {
+    const name = String(question.difficultyName).toLowerCase();
+    // "mittel" zuerst prüfen, damit z. B. "mittelschwer" orange wird und nicht rot.
+    if (/(mittel|medium|normal)/.test(name)) return 'medium';
+    if (/(leicht|einfach|easy)/.test(name)) return 'easy';
+    if (/(schwer|schwierig|hard|difficult)/.test(name)) return 'hard';
+
+    const position = this.difficulties.findIndex((difficulty) => difficulty.level === question.difficultyLevel);
+    if (position < 0 || this.difficulties.length < 3) return 'medium';
+    if (position === 0) return 'easy';
+    return position === this.difficulties.length - 1 ? 'hard' : 'medium';
+  }
 
   /** Lädt die Fragen passend zu den Filtern neu und zeichnet die Tabelle. */
   async reload() {
@@ -164,7 +185,7 @@ export class QuestionView {
           'td',
           {},
           el('span', {
-            class: `badge badge--level-${Math.abs(question.difficultyLevel) % 4}`,
+            class: `badge badge--${this.toneFor(question)}`,
             text: question.difficultyName,
           })
         ),
