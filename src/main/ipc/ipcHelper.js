@@ -2,6 +2,20 @@
 
 const { ipcMain } = require('electron');
 
+
+/**
+ * Prüft vor jedem geschützten Kanal, ob jemand angemeldet ist.
+ * Wird in main.js mit setAuthGuard() auf AuthService.isLoggedIn gesetzt.
+ */
+let authGuard = () => true;
+
+/**
+ * @param {() => boolean} guard Funktion, die true liefert, wenn ein Benutzer angemeldet ist
+ */
+function setAuthGuard(guard) {
+  authGuard = guard;
+}
+
 /**
  * Übersetzt technische Fehler in Meldungen, die ein Anwender versteht.
  * @param {Error} error Aufgetretener Fehler
@@ -26,15 +40,18 @@ function toUserMessage(error) {
  *
  * @param {string} channel Name des Kanals, z. B. "categories:list"
  * @param {Function} handler Funktion, die die Arbeit erledigt
+ * @param {{requiresLogin?: boolean}} [options] requiresLogin: false = auch ohne Anmeldung erreichbar
  */
-function handle(channel, handler) {
+function handle(channel, handler, { requiresLogin = true } = {}) {
   ipcMain.handle(channel, async (_event, ...args) => {
     try {
+      if (requiresLogin && !authGuard()) {
+        throw new Error('Bitte zuerst anmelden.');
+      }
       return { ok: true, data: await handler(...args) };
     } catch (error) {
       return { ok: false, error: toUserMessage(error) };
     }
   });
 }
-
-module.exports = { handle, toUserMessage };
+module.exports = { handle, toUserMessage, setAuthGuard };
